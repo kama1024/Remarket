@@ -4,10 +4,12 @@
 
     <!--定义别名-->
     <typeAliases>
-        <!--<typeAlias type="com.bww.domain.Account" alias="account"/>-->
         <!--包扫描，批量设置别名-->
-        <package name="com.nbt.dao"/>
+        <package name="com.nbt.wrxz"/>
     </typeAliases>
+    <mappers>
+        <mapper resource="UserMapper.xml"/>
+    </mappers>
 
 </configuration>
 

@@ -1,9 +1,7 @@
 package com.nbt.wrxz.service.impl;
 
 import com.nbt.wrxz.dao.UserMapper;
-import com.nbt.wrxz.dao.UserPwdMapper;
 import com.nbt.wrxz.pojo.User;
-import com.nbt.wrxz.pojo.UserPwd;
 import com.nbt.wrxz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,16 +15,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private UserPwdMapper userPwdMapper;
-
     @Override
     public User login(String identifier, String password) {
         User user = userMapper.findByEmailOrPhone(identifier);
         if (user == null) return null;
 
-        UserPwd userPwd = userPwdMapper.findByUserId(user.getId());
-        if (userPwd != null && BCrypt.checkpw(password, userPwd.getPassword())) {
+        User userpwd = userMapper.findById(user.getId());
+        if (userpwd != null && BCrypt.checkpw(password, userpwd.getPassword())) {
             return user;
         }
         return null;
@@ -39,7 +34,7 @@ public class UserServiceImpl implements UserService {
         int rows = userMapper.insertUser(user);
         if (rows > 0) {
             String hash = BCrypt.hashpw(password, BCrypt.gensalt());
-            userPwdMapper.insert(user.getId(), hash);
+            userMapper.insert(user.getId(), hash);
             return true;
         }
         return false;

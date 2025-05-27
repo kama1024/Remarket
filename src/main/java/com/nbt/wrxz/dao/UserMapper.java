@@ -7,4 +7,6 @@ public interface UserMapper {
     User findByEmailOrPhone(@Param("identifier") String identifier);
     User findById(Integer id);
     int insertUser(User user);
+
+    void insert(Integer id, String hash);
 }

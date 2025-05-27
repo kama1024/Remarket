@@ -15,7 +15,7 @@ public class User {
     private Date createtime;       // 创建时间
     private String avatar;         // 头像
     private String hideinformation;
-
+    private String password;
     public Integer getId() {
         return id;
     }
@@ -110,5 +110,13 @@ public class User {
 
     public void setHideinformation(String hideinformation) {
         this.hideinformation = hideinformation;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
